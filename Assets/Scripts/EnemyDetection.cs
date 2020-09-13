@@ -7,11 +7,12 @@ public class EnemyDetection : MonoBehaviour
 {
     public GameObject player;
     public TextMeshProUGUI detectionText;
+    public Rigidbody body;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        body = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,11 +24,23 @@ public class EnemyDetection : MonoBehaviour
         if (angle < 20.0f)
         {
             detectionText.text = "Player Detected!";
+            moveTowardsPlayer();
         }
         else
         {
             detectionText.text = "Player Undetected!";
         }
 
+    }
+
+    void moveTowardsPlayer()
+    {
+        float speed = 1.0f;
+        float distanceToStop = 5.0f;
+        if (Vector3.Distance(transform.position, player.transform.position) > distanceToStop)
+        {
+            transform.LookAt(player.transform);
+            body.AddRelativeForce(Vector3.forward * speed, ForceMode.Force);
+        }
     }
 }
