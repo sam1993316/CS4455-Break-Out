@@ -12,6 +12,7 @@ public class CharacterManager : MonoBehaviour
     public GameObject character;
     public bool limbProjectileMode;
     public ThirdPersonCamera cam;
+    private Rigidbody limbrb;
     void Awake()
     {
         cam.target = character;
@@ -24,6 +25,7 @@ public class CharacterManager : MonoBehaviour
         charController = character.GetComponent(typeof(PlayerController)) as PlayerController;
         limbJoint = limb.GetComponent(typeof(FixedJoint)) as FixedJoint;
 
+        limbController.jumpForce = 1f;
         limbController.enabled = false;
         limbProjectileMode = false;
         detached = false;
@@ -35,14 +37,15 @@ public class CharacterManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.T))
         {
-            Debug.Log("detaching/retaching");
+            
             if (!detached)
             {
+                Debug.Log("detaching");
                 Destroy(limbJoint);
                 if (limbProjectileMode)
                 {
-                    Rigidbody limbrb = limb.GetComponent(typeof(Rigidbody)) as Rigidbody;
-                    limbrb.AddForce(new Vector3(1, 0, 0) * 10, ForceMode.Impulse);
+                    limbrb = limb.GetComponent(typeof(Rigidbody)) as Rigidbody;
+                    limbrb.AddForce(new Vector3(1, 0, 0) * 5f, ForceMode.Impulse);
                 }
                 charController.enabled = false;
                 limbController.enabled = true;
@@ -51,12 +54,14 @@ public class CharacterManager : MonoBehaviour
             }
             else if (detached && Vector3.Distance(character.transform.position, limb.transform.position) < 1.5f)
             {
+                Debug.Log("reattaching");
                 limbJoint = limb.AddComponent(typeof(FixedJoint)) as FixedJoint;
                 limbJoint.connectedBody = character.GetComponent(typeof(Rigidbody)) as Rigidbody;
                 charController.enabled = true;
                 limbController.enabled = false;
                 detached = false;
                 cam.target = character;
+                
             }
         }
     }

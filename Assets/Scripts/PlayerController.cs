@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
-    private int grounded;
+    private int grounded; 
+    public float jumpForce;
 
     public bool IsGrounded
     {
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         grounded = 0;
+        this.jumpForce = 50f;
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
             Vector3 movement = new Vector3(0.0f, 1500 * Time.deltaTime, 0.0f);
-            rb.AddForce(movement * speed);
+            rb.AddForce(movement * speed * jumpForce);
         }
 
         transform.position += new Vector3(moveHorizontal * Time.deltaTime * speed, 0, moveVertical * Time.deltaTime * speed);
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             grounded++;
         }
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             grounded--;
         }
