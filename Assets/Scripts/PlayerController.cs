@@ -34,11 +34,13 @@ public class PlayerController : MonoBehaviour
         //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            Vector3 movement = new Vector3(0.0f, 1500 * Time.deltaTime, 0.0f);
-            rb.AddForce(movement * speed * jumpForce);
+            Vector3 jump = new Vector3(0.0f, 1500 * Time.deltaTime, 0.0f);
+            rb.AddForce(jump * speed * jumpForce);
         }
 
-        transform.position += new Vector3(moveHorizontal * Time.deltaTime * speed, 0, moveVertical * Time.deltaTime * speed);
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical) * speed * Time.deltaTime;
+
+        rb.MovePosition(this.transform.position + movement);
     }
 
     private void OnCollisionEnter(Collision collision)
