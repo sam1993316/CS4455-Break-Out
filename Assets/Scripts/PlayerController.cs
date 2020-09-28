@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
-    private int grounded; 
+    private int grounded;
     public float jumpForce;
 
     public bool IsGrounded
