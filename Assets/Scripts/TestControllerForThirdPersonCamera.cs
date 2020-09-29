@@ -6,6 +6,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
+    public Rigidbody rb;
     public float speed = 6f;
 
 
@@ -15,7 +16,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -35,8 +36,8 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
             float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
-
+            //controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+            rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.deltaTime);
         }
     }
 }
