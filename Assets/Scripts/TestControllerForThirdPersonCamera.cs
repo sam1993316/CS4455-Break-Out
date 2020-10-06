@@ -8,6 +8,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     public Transform cam;
     public Rigidbody rb;
     public float speed = 6f;
+    private Animator anim;
 
 
     public float turnSmoothTime = 0.1f;
@@ -17,6 +18,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -39,5 +41,8 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
             //controller.Move(moveDirection.normalized * speed * Time.deltaTime);
             rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.deltaTime);
         }
+        
+        float movespeed = Mathf.Max(Mathf.Abs(moveHorizontal), Mathf.Abs(moveVertical));
+        anim.SetFloat("velocity", movespeed);
     }
 }
