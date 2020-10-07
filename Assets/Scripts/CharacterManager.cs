@@ -35,9 +35,10 @@ public class CharacterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Logic for detaching and reattaching
         if (Input.GetKeyUp(KeyCode.T))
         {
-            
+
             if (!detached)
             {
                 Debug.Log("detaching");
@@ -61,7 +62,7 @@ public class CharacterManager : MonoBehaviour
                 limbController.enabled = false;
                 detached = false;
                 cam.target = character;
-                
+
             }
         }
     }

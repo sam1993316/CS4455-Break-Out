@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     public float speed;
-    private int grounded; 
+    private int grounded;
     public float jumpForce;
+    private Animator anim;
 
     public bool IsGrounded
     {
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
         grounded = 0;
         this.jumpForce = 50f;
     }
@@ -41,6 +43,14 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical) * speed * Time.deltaTime;
 
         rb.MovePosition(this.transform.position + movement);
+
+        float movespeed = moveHorizontal;
+        if (moveVertical > moveHorizontal)
+        {
+            movespeed = moveVertical;
+        }
+        Debug.Log(movespeed);
+        anim.SetFloat("velocity", movespeed);
     }
 
     private void OnCollisionEnter(Collision collision)
