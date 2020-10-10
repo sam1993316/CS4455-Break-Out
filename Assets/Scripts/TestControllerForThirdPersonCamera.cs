@@ -10,6 +10,12 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     public float speed = 6f;
     private Animator anim;
 
+    private float filteredForwardInput = 0f;
+
+    public float forwardInputFilter = 5f;
+
+    private float forwardSpeedLimit = 1f;
+
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -29,7 +35,10 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         // logic for compatibility for third person camera
         Vector3 direction = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
 
-
+        //do some filtering of our input as well as clamp to a speed limit
+        float movespeed = Mathf.Max(Mathf.Abs(moveHorizontal), Mathf.Abs(moveVertical));
+        filteredForwardInput = Mathf.Clamp(Mathf.Lerp(filteredForwardInput, movespeed,
+            Time.deltaTime * forwardInputFilter), -forwardSpeedLimit, forwardSpeedLimit);
 
         // test for moving using character controller
         if (direction.magnitude >= 0.1f)
@@ -42,7 +51,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
             rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.deltaTime);
         }
         
-        float movespeed = Mathf.Max(Mathf.Abs(moveHorizontal), Mathf.Abs(moveVertical));
-        anim.SetFloat("velocity", movespeed);
+        
+        anim.SetFloat("velocity", filteredForwardInput);
     }
 }

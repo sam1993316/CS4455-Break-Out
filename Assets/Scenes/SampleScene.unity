@@ -1072,6 +1072,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7389507112651452681, guid: 6dc4cf4496348884d8ee27743ae38562,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
 --- !u!1 &618997042
@@ -1713,7 +1718,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022803709}
-  m_LocalRotation: {x: 0.10251729, y: -0.000000028311979, z: -9.929605e-10, w: 0.99473125}
+  m_LocalRotation: {x: 0.10251726, y: 0.0000000013482541, z: -0.0000000040497525,
+    w: 0.99473125}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2015,6 +2021,7 @@ MonoBehaviour:
   cam: {fileID: 963194228}
   rb: {fileID: 0}
   speed: 6
+  forwardInputFilter: 5
   turnSmoothTime: 0.1
 --- !u!23 &1341516002
 MeshRenderer:
@@ -2305,6 +2312,7 @@ MonoBehaviour:
   cam: {fileID: 963194228}
   rb: {fileID: 0}
   speed: 6
+  forwardInputFilter: 5
   turnSmoothTime: 0.1
 --- !u!1 &1751071256
 GameObject:
