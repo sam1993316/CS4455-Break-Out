@@ -11,14 +11,28 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     private Animator anim;
 
     private float filteredForwardInput = 0f;
-
     public float forwardInputFilter = 5f;
-
     private float forwardSpeedLimit = 1f;
-
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+
+    //Useful if you implement jump in the future...
+    public float jumpHeight = 50.0f;
+    public float jumpableGroundNormalMaxAngle = 45f;
+    public bool closeToJumpableGround;
+
+
+    private int groundContactCount = 0;
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return groundContactCount > 0;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +44,20 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isGrounded = IsGrounded || CharacterCommon.CheckGroundNear(this.transform.position, jumpableGroundNormalMaxAngle, 0.1f, 1f, out closeToJumpableGround);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Vector3 jump = new Vector3(0.0f, 200.0f, 0.0f);
+            rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
+        }
+
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
         // logic for compatibility for third person camera
         Vector3 direction = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
+
+        
 
         //do some filtering of our input as well as clamp to a speed limit
         float movespeed = Mathf.Max(Mathf.Abs(moveHorizontal), Mathf.Abs(moveVertical));
@@ -53,5 +77,6 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         
         
         anim.SetFloat("velocity", filteredForwardInput);
+       // anim.SetBool("jumping", isGrounded);
     }
 }

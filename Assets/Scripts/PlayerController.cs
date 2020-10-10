@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Vector3 jump = new Vector3(0.0f, 1500 * Time.deltaTime, 0.0f);
             rb.AddForce(jump * speed * jumpForce);
