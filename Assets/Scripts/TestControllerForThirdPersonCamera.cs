@@ -46,10 +46,16 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     {
         bool isGrounded = IsGrounded || CharacterCommon.CheckGroundNear(this.transform.position, jumpableGroundNormalMaxAngle, 0.1f, 1f, out closeToJumpableGround);
 
+        if (isGrounded)
+        {
+            anim.SetTrigger("landed");
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Vector3 jump = new Vector3(0.0f, 200.0f, 0.0f);
             rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
+            anim.SetTrigger("jumped");
         }
 
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -77,6 +83,5 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         
         
         anim.SetFloat("velocity", filteredForwardInput);
-       // anim.SetBool("jumping", isGrounded);
     }
 }
