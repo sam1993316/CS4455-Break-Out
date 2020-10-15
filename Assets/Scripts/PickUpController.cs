@@ -10,7 +10,8 @@ public class PickUpController : MonoBehaviour
 
     public Rigidbody rb;
     public BoxCollider bc;
-    public Transform player, itemContainer, tpsCam;
+    public Renderer render;
+    public Transform player, itemContainer;
 
     public float pickUpRange;
     public float throwingForce;
@@ -84,8 +85,9 @@ public class PickUpController : MonoBehaviour
         transform.SetParent(itemContainer);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
+        render.enabled = false;
         // transform.localScale = new Vector3(1f, 1f, 1f);
-
+        
         // Making it kinematic makes sure no external forces affect it, is trigger makes it so it doesn't physically collide with the environment when holding it
         rb.isKinematic = true;
         bc.isTrigger = true;
@@ -102,6 +104,7 @@ public class PickUpController : MonoBehaviour
 
         // Gun carries momentum of player
         rb.velocity = player.GetComponent<Rigidbody>().velocity;
+        render.enabled = true;
 
         // Throwing Forces
         // Vector3 direction = mainCamera.transform.forward;
