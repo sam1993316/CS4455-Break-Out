@@ -81,12 +81,12 @@ public class GuardStateMachine : MonoBehaviour
                 {
                     Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
                     detectionText.text = "Player found";
-                    //state = State.chase;
+                    state = State.chase;
                 }
                 else
                 {
                     detectionText.text = "Player not found 1";
-                    //state = State.patrol;
+                    state = State.patrol;
                 }
             }
             else
