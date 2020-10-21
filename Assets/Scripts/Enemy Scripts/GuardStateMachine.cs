@@ -63,7 +63,7 @@ public class GuardStateMachine : MonoBehaviour
             case State.qtevent:
                 break;
             case State.investigateSound:
-                Debug.Log("Investigating Sound " + investigationLength);
+                // Debug.Log("Investigating Sound " + investigationLength);
                 agent.SetDestination(soundLocation);
                 investigationLength -= Time.deltaTime;
                 if (investigationLength <= 0.0f)

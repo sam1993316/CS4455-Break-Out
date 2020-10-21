@@ -26,6 +26,10 @@ public class PickUpController : MonoBehaviour
 
     private Camera mainCamera;
 
+    private AudioSource audioSource;
+
+    public AudioClip[] clips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +45,7 @@ public class PickUpController : MonoBehaviour
         }
         pickUpRange = 3f;
         mainCamera = Camera.main; // this grabs the main camera
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -90,7 +95,14 @@ public class PickUpController : MonoBehaviour
                     Debug.Log("Enemy noticed thrown object");
                 }
             }
-            Destroy(gameObject);
+            AudioClip clip = clips[0];
+            audioSource.PlayOneShot(clip);
+            Collider collider = GetComponent<Collider>();
+            MeshRenderer renderer = GetComponent<MeshRenderer>();
+            collider.enabled = false;
+            renderer.enabled = false;
+            rb.isKinematic = false;
+            //Destroy(gameObject);
         }
     }
 
