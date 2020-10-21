@@ -22,6 +22,8 @@ public class PickUpController : MonoBehaviour
 
     public bool throwing;
 
+    public float sound_radius = 100.0f;
+
     private Camera mainCamera;
 
     // Start is called before the first frame update
@@ -72,6 +74,24 @@ public class PickUpController : MonoBehaviour
             transform.position = itemContainer.transform.position;
         } 
 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground" && throwing)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, sound_radius);
+            foreach (var hitCollider in hitColliders)
+            {
+                GuardStateMachine enemy_ai = hitCollider.gameObject.GetComponent<GuardStateMachine>();
+                if (enemy_ai != null)
+                {
+                    enemy_ai.noticeSound(gameObject.transform.position);
+                    Debug.Log("Enemy noticed thrown object");
+                }
+            }
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate() {}

@@ -12,7 +12,8 @@ public class GuardStateMachine : MonoBehaviour
     {
         patrol,
         chase,
-        qtevent
+        qtevent,
+        investigateSound
     }
 
     public GameObject[] waypoints;
@@ -28,6 +29,11 @@ public class GuardStateMachine : MonoBehaviour
     private float maxFOVAngle = 20;
     private float lookRadius = 1f;
     public float sightRange = 0f;
+
+    private Vector3 soundLocation;
+    public float investigationLengthLowerLimit = 7.0f;
+    public float investigationLengthUpperLimit = 10.0f;
+    private float investigationLength;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +61,17 @@ public class GuardStateMachine : MonoBehaviour
                 findPlayer();
                 break;
             case State.qtevent:
+                break;
+            case State.investigateSound:
+                Debug.Log("Investigating Sound " + investigationLength);
+                agent.SetDestination(soundLocation);
+                investigationLength -= Time.deltaTime;
+                if (investigationLength <= 0.0f)
+                {
+                    Debug.Log("Got bored of sound, going back to patrolling");
+                    state = State.patrol;
+                }
+                findPlayer();
                 break;
         }
     }
@@ -86,7 +103,10 @@ public class GuardStateMachine : MonoBehaviour
                 else
                 {
                     detectionText.text = "Player not found 1";
-                    state = State.patrol;
+                    if (state == State.chase)
+                    {
+                        state = State.patrol;
+                    }
                 }
             }
             else
@@ -94,8 +114,16 @@ public class GuardStateMachine : MonoBehaviour
                 detectionText.text = "Player not found 2";
             }
         }
+    }
 
-
-
+    public void noticeSound(Vector3 soundLocation)
+    {
+        if (state != State.chase)
+        {
+            this.soundLocation = soundLocation;
+            investigationLength = UnityEngine.Random.Range(investigationLengthLowerLimit, investigationLengthUpperLimit);
+            state = State.investigateSound;
+            Debug.Log("Going to investigate " + soundLocation + " for " + investigationLength);
+        }
     }
 }
