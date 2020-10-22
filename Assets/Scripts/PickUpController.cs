@@ -9,8 +9,8 @@ public class PickUpController : MonoBehaviour
     // also make sure for the rigid body that "interpolate" = Extrapolate, and "Collision Detection" = Continuous Speculative
 
     public Rigidbody rb;
-    public BoxCollider bc;
-    public Renderer render;
+    public Collider bc;
+    //public Renderer render;
     public Transform player, itemContainer;
 
     public float pickUpRange;
@@ -22,7 +22,7 @@ public class PickUpController : MonoBehaviour
 
     public bool throwing;
 
-    public float sound_radius = 100.0f;
+    public float sound_radius = 5.0f;
 
     private Camera mainCamera;
 
@@ -98,9 +98,10 @@ public class PickUpController : MonoBehaviour
             AudioClip clip = clips[0];
             audioSource.PlayOneShot(clip);
             Collider collider = GetComponent<Collider>();
-            MeshRenderer renderer = GetComponent<MeshRenderer>();
+            //MeshRenderer renderer = GetComponent<MeshRenderer>();
+            transform.localScale = new Vector3(0, 0, 0);
             collider.enabled = false;
-            renderer.enabled = false;
+            //renderer.enabled = false;
             rb.isKinematic = false;
             //Destroy(gameObject);
         }
@@ -117,8 +118,8 @@ public class PickUpController : MonoBehaviour
         transform.SetParent(itemContainer);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
-        render.enabled = false;
-        // transform.localScale = new Vector3(1f, 1f, 1f);
+        //render.enabled = false;
+        transform.localScale = new Vector3(0, 0, 0);
         
         // Making it kinematic makes sure no external forces affect it, is trigger makes it so it doesn't physically collide with the environment when holding it
         rb.isKinematic = true;
@@ -136,7 +137,8 @@ public class PickUpController : MonoBehaviour
 
         // Gun carries momentum of player
         rb.velocity = player.GetComponent<Rigidbody>().velocity;
-        render.enabled = true;
+        transform.localScale = new Vector3(1, 1, 1);
+        //render.enabled = true;
 
         // Throwing Forces
         // Vector3 direction = mainCamera.transform.forward;
