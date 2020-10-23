@@ -63,7 +63,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         // logic for compatibility for third person camera
         Vector3 direction = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
 
-        
+
 
         //do some filtering of our input as well as clamp to a speed limit
         float movespeed = Mathf.Max(Mathf.Abs(moveHorizontal), Mathf.Abs(moveVertical));
@@ -79,9 +79,11 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             //controller.Move(moveDirection.normalized * speed * Time.deltaTime);
             rb.MovePosition(rb.position + moveDirection.normalized * speed * Time.deltaTime);
+
+
         }
-        
-        
+
+
         anim.SetFloat("velocity", filteredForwardInput);
     }
 }
