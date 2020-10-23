@@ -9,8 +9,8 @@ public class PickUpController : MonoBehaviour
     // also make sure for the rigid body that "interpolate" = Extrapolate, and "Collision Detection" = Continuous Speculative
 
     public Rigidbody rb;
-    public BoxCollider bc;
-    public Renderer render;
+    public Collider bc;
+    //public Renderer render;
     public Transform player, itemContainer;
 
     public float pickUpRange;
@@ -22,7 +22,13 @@ public class PickUpController : MonoBehaviour
 
     public bool throwing;
 
+    public float sound_radius = 5.0f;
+
     private Camera mainCamera;
+
+    private AudioSource audioSource;
+
+    public AudioClip[] clips;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +45,7 @@ public class PickUpController : MonoBehaviour
         }
         pickUpRange = 3f;
         mainCamera = Camera.main; // this grabs the main camera
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,6 +81,32 @@ public class PickUpController : MonoBehaviour
 
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground" && throwing)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, sound_radius);
+            foreach (var hitCollider in hitColliders)
+            {
+                GuardStateMachine enemy_ai = hitCollider.gameObject.GetComponent<GuardStateMachine>();
+                if (enemy_ai != null)
+                {
+                    enemy_ai.noticeSound(gameObject.transform.position);
+                    Debug.Log("Enemy noticed thrown object");
+                }
+            }
+            AudioClip clip = clips[0];
+            audioSource.PlayOneShot(clip);
+            Collider collider = GetComponent<Collider>();
+            //MeshRenderer renderer = GetComponent<MeshRenderer>();
+            transform.localScale = new Vector3(0, 0, 0);
+            collider.enabled = false;
+            //renderer.enabled = false;
+            rb.isKinematic = false;
+            //Destroy(gameObject);
+        }
+    }
+
     private void FixedUpdate() {}
 
     void PickUp()
@@ -85,8 +118,8 @@ public class PickUpController : MonoBehaviour
         transform.SetParent(itemContainer);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
-        render.enabled = false;
-        // transform.localScale = new Vector3(1f, 1f, 1f);
+        //render.enabled = false;
+        transform.localScale = new Vector3(0, 0, 0);
         
         // Making it kinematic makes sure no external forces affect it, is trigger makes it so it doesn't physically collide with the environment when holding it
         rb.isKinematic = true;
@@ -104,7 +137,8 @@ public class PickUpController : MonoBehaviour
 
         // Gun carries momentum of player
         rb.velocity = player.GetComponent<Rigidbody>().velocity;
-        render.enabled = true;
+        transform.localScale = new Vector3(1, 1, 1);
+        //render.enabled = true;
 
         // Throwing Forces
         // Vector3 direction = mainCamera.transform.forward;
