@@ -24,17 +24,25 @@ public class GuardStateMachine : MonoBehaviour
     public GameObject eyes;
     public GameObject player;
     public TextMeshProUGUI detectionText;
+    public Animator animator;
 
     private float maxFOVAngle = 20;
     private float lookRadius = 1f;
-    public float sightRange = 0f;
+    public float sightRange;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         state = State.patrol;
         currWaypoint = 0;
+        sightRange = 10f;
+    }
+
+    private void OnAnimatorMove()
+    {
+        agent.speed = (animator.deltaPosition / Time.deltaTime).magnitude;
     }
 
     // Update is called once per frame
@@ -43,6 +51,7 @@ public class GuardStateMachine : MonoBehaviour
         switch (state)
         {
             case State.patrol:
+                animator.SetBool("playerFound", false);
                 if (agent.remainingDistance < 1f && agent.pathPending == false)
                 {
                     currWaypoint = currWaypoint == 0 ? 1 : 0;
@@ -52,6 +61,7 @@ public class GuardStateMachine : MonoBehaviour
                 break;
             case State.chase:
                 agent.SetDestination(player.transform.position);
+                animator.SetBool("playerFound", true);
                 findPlayer();
                 break;
             case State.qtevent:
@@ -67,13 +77,13 @@ public class GuardStateMachine : MonoBehaviour
 
 
         Vector3 playerDirection = player.transform.position - eyes.transform.position;
-        Vector3 playerHeight = new Vector3(0, transform.localScale.y, 0);
+        Vector3 playerHeight = new Vector3(0, transform.localScale.y * 1.5f, 0);
 
         if (playerAngle < maxFOVAngle)
         {
             RaycastHit hit;
-
             
+
 
             if (Physics.Raycast(eyes.transform.position, playerDirection + playerHeight, out hit, sightRange))
             {
