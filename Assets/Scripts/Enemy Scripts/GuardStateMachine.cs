@@ -28,7 +28,7 @@ public class GuardStateMachine : MonoBehaviour
     public Animator animator;
 
     private float maxFOVAngle = 20;
-    private float lookRadius = 1f;
+    private float lookRadius = 5f;
     public float sightRange;
 
     private Vector3 soundLocation;
@@ -107,12 +107,14 @@ public class GuardStateMachine : MonoBehaviour
                 if (hit.collider.CompareTag("Player"))
                 {
                     Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
-                    detectionText.text = "Player found";
+                    //detectionText.text = "Player found";
+                    Debug.Log("Player found");
                     state = State.chase;
                 }
                 else
                 {
-                    detectionText.text = "Player not found 1";
+                    //detectionText.text = "Player not found 1";
+                    Debug.Log("Player not found 1");
                     if (state == State.chase)
                     {
                         state = State.patrol;
@@ -121,7 +123,8 @@ public class GuardStateMachine : MonoBehaviour
             }
             else
             {
-                detectionText.text = "Player not found 2";
+                //detectionText.text = "Player not found 2";
+                Debug.Log("Player not found 2");
             }
         }
     }
