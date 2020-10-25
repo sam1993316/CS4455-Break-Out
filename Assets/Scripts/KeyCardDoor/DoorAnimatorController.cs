@@ -10,15 +10,17 @@ public class DoorAnimatorController : MonoBehaviour
     private KeyCardCollector kc;
 
 
-    // [SerializeField] private Animator slideDoorController;
+    [SerializeField] private Animator movingDoorController;
+    // public Animator movingDoorController;
+
     private void OnTriggerEnter(Collider c)
     {
         // inlcude a check here for a keycard
         kc = player.GetComponent<KeyCardCollector>();
-        if (c.CompareTag("Player"))
+        if (c.CompareTag("Player") && kc.HasKey(thisDoorsKey))
         {
             Debug.Log("Player has entered Door Collider");
-            // slideDoorController.SetBool("slide", true);
+            movingDoorController.SetBool("playerEnter", true);
         }
         
     }
@@ -28,7 +30,7 @@ public class DoorAnimatorController : MonoBehaviour
         if (c.CompareTag("Player"))
         {
             Debug.Log("Player has exited the Door Collider");
-            // slideDoorController.SetBool("slide", false);
+            movingDoorController.SetBool("playerEnter", false);
         }
     }
 }

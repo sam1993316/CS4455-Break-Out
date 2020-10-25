@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 3455007543795422066}
   - component: {fileID: 3455007543795422065}
   - component: {fileID: 3455007543795422078}
+  - component: {fileID: 8862551465242689372}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: Player
@@ -584,6 +585,22 @@ MonoBehaviour:
   jumpHeight: 2
   jumpableGroundNormalMaxAngle: 45
   closeToJumpableGround: 0
+--- !u!114 &8862551465242689372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274290572255800207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4238e608ed4054480bdc694e248001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasYellowKey: 0
+  YellowKeyID: 
+  hasBlueKey: 0
+  BlueKeyID: 
 --- !u!1 &1410531809711482525
 GameObject:
   m_ObjectHideFlags: 0

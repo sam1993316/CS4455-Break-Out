@@ -13,6 +13,8 @@ public class KeyCardCollector : MonoBehaviour
     public bool hasBlueKey;
     public string BlueKeyID; 
 
+    private List<string> keys = new List<string>();
+
     void Start()
     {
         hasYellowKey = false;
@@ -23,9 +25,19 @@ public class KeyCardCollector : MonoBehaviour
     {
         if (keyID == YellowKeyID) {
             hasYellowKey = true;
+            keys.Add(keyID);
         }
         if (keyID == BlueKeyID) {
             hasBlueKey = true;
+            keys.Add(keyID);
         }
     }
+
+    public bool HasKey(string keyID) {
+        if (keys.Contains(keyID)) {
+            return true;
+        }
+        return false;
+    }
+
 }

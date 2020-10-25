@@ -34,17 +34,4 @@ public class CollectableKeyCard : MonoBehaviour
         }
         
     }
-
-    // void OnTriggerEnter(Collider c)
-    // {
-    //     if (c.attachedRigidbody != null) {
-    //         // BallCollector bc = c.attachedRigidbody.gameObject.GetComponent<BallCollector>();
-    //         // Debug.LogError(bc);
-    //         // if (bc != null) {
-    //         //     bc.ReceiveBall();
-    //         //     Destroy(this.gameObject);
-    //         // }
-    //     }
-        
-    // }
 }
