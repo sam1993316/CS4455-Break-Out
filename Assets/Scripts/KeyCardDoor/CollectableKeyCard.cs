@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// put this on the keycard
 public class CollectableKeyCard : MonoBehaviour
 {
     // made public so that devs can set the key ID of a new key

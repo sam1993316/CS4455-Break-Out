@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// place this script on the door's collider
 public class DoorAnimatorController : MonoBehaviour
 {
     public string thisDoorsKey;

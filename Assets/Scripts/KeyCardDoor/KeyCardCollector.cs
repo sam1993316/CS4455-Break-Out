@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// put this on the player
 public class KeyCardCollector : MonoBehaviour
 {
     // this class will tell us if the player has the various different keycards available in the level
