@@ -67,7 +67,14 @@ public class GuardStateMachine : MonoBehaviour
                 }
                 if (agent.remainingDistance < 1f && agent.pathPending == false)
                 {
-                    currWaypoint = currWaypoint == 0 ? 1 : 0;
+                    if (currWaypoint == waypoints.Length - 1)
+                    {
+                        currWaypoint = 0;
+                    }
+                    else
+                    {
+                        currWaypoint += 1;
+                    }
                 }
                 agent.SetDestination(waypoints[currWaypoint].transform.position);
                 findPlayer();
