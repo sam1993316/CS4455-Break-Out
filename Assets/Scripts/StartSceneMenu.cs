@@ -8,7 +8,7 @@ public class StartSceneMenu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("1rstLevel");
     }
 
     public void QuitGame()
