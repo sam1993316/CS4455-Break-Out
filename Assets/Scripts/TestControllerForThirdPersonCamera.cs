@@ -9,6 +9,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     public Rigidbody rb;
     public float speed = 6f;
     private Animator anim;
+    public Canvas UI;
 
     private float filteredForwardInput = 0f;
     public float forwardInputFilter = 5f;
@@ -85,5 +86,17 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
 
 
         anim.SetFloat("velocity", filteredForwardInput);
+    }
+
+    public void LoseGame()
+    {
+        GameOver script = UI.GetComponent<GameOver>();
+        script.LoseGame();
+    }
+
+    public void WinGame()
+    {
+        GameOver script = UI.GetComponent<GameOver>();
+        script.WinGame();
     }
 }

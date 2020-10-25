@@ -28,7 +28,7 @@ public class GuardStateMachine : MonoBehaviour
     public Animator animator;
 
     private float maxFOVAngle = 20;
-    private float lookRadius = 5f;
+    private float lookRadius = 3f;
     public float sightRange;
 
     private Vector3 soundLocation;
@@ -48,7 +48,14 @@ public class GuardStateMachine : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        agent.speed = (animator.deltaPosition / Time.deltaTime).magnitude;
+        if (Time.timeScale > 0)
+        {
+            float speed = (animator.deltaPosition / Time.deltaTime).magnitude;
+            if (!float.IsNaN(speed))
+            {
+                agent.speed = speed;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -80,6 +87,11 @@ public class GuardStateMachine : MonoBehaviour
                 findPlayer();
                 break;
             case State.chase:
+                if (agent.remainingDistance < 1f && agent.pathPending == false)
+                {
+                    TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
+                    script.LoseGame();
+                }
                 agent.SetDestination(player.transform.position);
                 animator.SetBool("Idle", false);
                 animator.SetBool("playerFound", true);
@@ -126,15 +138,15 @@ public class GuardStateMachine : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
+                    //Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
                     //detectionText.text = "Player found";
-                    Debug.Log("Player found");
+                    //Debug.Log("Player found");
                     state = State.chase;
                 }
                 else
                 {
                     //detectionText.text = "Player not found 1";
-                    Debug.Log("Player not found 1");
+                    //Debug.Log("Player not found 1");
                     if (state == State.chase)
                     {
                         state = State.patrol;
@@ -144,7 +156,7 @@ public class GuardStateMachine : MonoBehaviour
             else
             {
                 //detectionText.text = "Player not found 2";
-                Debug.Log("Player not found 2");
+                //Debug.Log("Player not found 2");
             }
         }
     }
