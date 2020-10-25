@@ -57,7 +57,14 @@ public class GuardStateMachine : MonoBehaviour
         switch (state)
         {
             case State.patrol:
-                animator.SetBool("playerFound", false);
+                if (waypoints.Length > 1)
+                {
+                    animator.SetBool("playerFound", false);
+                }
+                else
+                {
+                    animator.SetBool("Idle", true);
+                }
                 if (agent.remainingDistance < 1f && agent.pathPending == false)
                 {
                     currWaypoint = currWaypoint == 0 ? 1 : 0;
@@ -67,6 +74,7 @@ public class GuardStateMachine : MonoBehaviour
                 break;
             case State.chase:
                 agent.SetDestination(player.transform.position);
+                animator.SetBool("Idle", false);
                 animator.SetBool("playerFound", true);
                 findPlayer();
                 break;
@@ -74,12 +82,17 @@ public class GuardStateMachine : MonoBehaviour
                 break;
             case State.investigateSound:
                 // Debug.Log("Investigating Sound " + investigationLength);
+                if (agent.remainingDistance < 1f && agent.pathPending == false)
+                {
+                    animator.SetBool("Idle", true);
+                }
                 agent.SetDestination(soundLocation);
                 investigationLength -= Time.deltaTime;
                 if (investigationLength <= 0.0f)
                 {
                     Debug.Log("Got bored of sound, going back to patrolling");
                     state = State.patrol;
+                    animator.SetBool("Idle", false);
                 }
                 findPlayer();
                 break;
