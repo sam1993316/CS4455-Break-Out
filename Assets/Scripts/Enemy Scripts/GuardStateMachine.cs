@@ -27,13 +27,13 @@ public class GuardStateMachine : MonoBehaviour
     public TextMeshProUGUI detectionText;
     public Animator animator;
 
-    private float maxFOVAngle = 30;
-    private float lookRadius = 4f;
+    private float maxFOVAngle = 20;
+    private float lookRadius = 3f;
     public float sightRange;
 
     private Vector3 soundLocation;
-    public float investigationLengthLowerLimit = 12.0f;
-    public float investigationLengthUpperLimit = 20.0f;
+    public float investigationLengthLowerLimit = 7.0f;
+    public float investigationLengthUpperLimit = 10.0f;
     private float investigationLength;
 
     // Start is called before the first frame update
@@ -43,7 +43,7 @@ public class GuardStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         state = State.patrol;
         currWaypoint = 0;
-        sightRange = 20f;
+        sightRange = 10f;
     }
 
     private void OnAnimatorMove()
