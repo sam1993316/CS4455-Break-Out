@@ -141,7 +141,11 @@ public class GuardStateMachine : MonoBehaviour
                     //Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
                     //detectionText.text = "Player found";
                     //Debug.Log("Player found");
-                    state = State.chase;
+                    float y_distance = Math.Abs(hit.collider.transform.position.y - this.transform.position.y);
+                    if (y_distance <= 2.0f) //Make sure that cop can't see the player if the player is high up
+                    {
+                        state = State.chase;
+                    }
                 }
                 else
                 {
