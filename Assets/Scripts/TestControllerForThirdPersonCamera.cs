@@ -49,14 +49,16 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
 
         if (isGrounded)
         {
-            anim.SetTrigger("landed");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Vector3 jump = new Vector3(0.0f, 150.0f, 0.0f);
-            rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
-            anim.SetTrigger("jumped");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Vector3 jump = new Vector3(0.0f, 150.0f, 0.0f);
+                rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
+                anim.SetBool("is_in_air", true);
+            }
+            else
+            {
+                anim.SetBool("is_in_air", false);
+            }
         }
 
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
