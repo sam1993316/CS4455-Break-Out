@@ -54,7 +54,7 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Vector3 jump = new Vector3(0.0f, 200.0f, 0.0f);
+            Vector3 jump = new Vector3(0.0f, 150.0f, 0.0f);
             rb.AddForce(jump * jumpHeight, ForceMode.Impulse);
             anim.SetTrigger("jumped");
         }
