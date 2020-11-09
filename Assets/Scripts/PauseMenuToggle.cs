@@ -6,11 +6,17 @@ using UnityEngine;
 public class PauseMenuToggle : MonoBehaviour
 {
 
+
     private CanvasGroup canvasGroup;
     private GameObject mainMenu;
     private GameObject optionsMenu;
 
     void Awake()
+    {
+
+    }
+    // Start is called before the first frame update
+    void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
@@ -25,35 +31,31 @@ public class PauseMenuToggle : MonoBehaviour
         if (optionsMenu == null)
             Debug.LogError("Options Menu could not be found");
 
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+
+    }
+
+    public void PauseMenuInteraction()
+    {
+        if (canvasGroup.interactable)
         {
-            if (canvasGroup.interactable)
-            {
-                canvasGroup.interactable = false;
-                canvasGroup.blocksRaycasts = false;
-                canvasGroup.alpha = 0f;
-                Time.timeScale = 1f;
-            }
-            else
-            {
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
-                canvasGroup.alpha = 1f;
-                Time.timeScale = 0f;
-                mainMenu.SetActive(true);
-                optionsMenu.SetActive(false);
-            }
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 0f;
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1f;
+            Time.timeScale = 0f;
+            mainMenu.SetActive(true);
+            optionsMenu.SetActive(false);
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class GameOver : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-    public TextMeshProUGUI winLoseText;
+    public Text winLoseText;
+    //public TextMeshProUGUI winLoseText;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class GameOver : MonoBehaviour
 
     public void LoseGame()
     {
-        winLoseText.text = "You lose!";
+        winLoseText.text = "Y  O  U    L O S E!";
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
@@ -32,7 +33,7 @@ public class GameOver : MonoBehaviour
 
     public void WinGame()
     {
-        winLoseText.text = "You win!";
+        winLoseText.text = "Y O U   W I N!";
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
