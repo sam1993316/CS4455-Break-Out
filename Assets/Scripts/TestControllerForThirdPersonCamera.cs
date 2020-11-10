@@ -10,6 +10,8 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     public float speed = 6f;
     private Animator anim;
     public Canvas UI;
+    public Canvas InGameMenu;
+    private bool gameEnded = false;
 
     private float filteredForwardInput = 0f;
     public float forwardInputFilter = 5f;
@@ -86,18 +88,28 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
 
         }
 
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (!gameEnded)
+            {
+                PauseMenuToggle pauseMenuScript = InGameMenu.GetComponent<PauseMenuToggle>();
+                pauseMenuScript.PauseMenuInteraction();
+            }
+        }
 
         anim.SetFloat("velocity", filteredForwardInput);
     }
 
     public void LoseGame()
     {
+        gameEnded = true;
         GameOver script = UI.GetComponent<GameOver>();
         script.LoseGame();
     }
 
     public void WinGame()
     {
+        gameEnded = true;
         GameOver script = UI.GetComponent<GameOver>();
         script.WinGame();
     }
