@@ -29,6 +29,7 @@ public class GameOver : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
         Time.timeScale = 0f;
+        Cursor.visible = true;
     }
 
     public void WinGame()
@@ -38,5 +39,7 @@ public class GameOver : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
         Time.timeScale = 0f;
+        Cursor.visible = true;
+
     }
 }

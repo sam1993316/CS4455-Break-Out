@@ -9,6 +9,8 @@ public class StartSceneMenu : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene("1rstLevel");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void QuitGame()

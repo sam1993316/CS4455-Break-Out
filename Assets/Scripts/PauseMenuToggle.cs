@@ -45,6 +45,10 @@ public class PauseMenuToggle : MonoBehaviour
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = 0f;
             Time.timeScale = 1f;
+            // Unhide cursor for pause menu
+            Debug.Log("cursor off");
+            Cursor.visible = false;
+
         }
         else
         {
@@ -54,6 +58,9 @@ public class PauseMenuToggle : MonoBehaviour
             Time.timeScale = 0f;
             mainMenu.SetActive(true);
             optionsMenu.SetActive(false);
+            // Hiding the cursor when going back to the game
+            Debug.Log("cursor on");
+            Cursor.visible = true;
         }
     }
 }
