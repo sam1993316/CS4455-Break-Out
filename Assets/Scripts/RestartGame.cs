@@ -20,6 +20,8 @@ public class RestartGame : MonoBehaviour
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene("1rstLevel");
+        Scene m_Scene = SceneManager.GetActiveScene();
+        string sceneName = m_Scene.name;
+        SceneManager.LoadScene(sceneName);
     }
 }

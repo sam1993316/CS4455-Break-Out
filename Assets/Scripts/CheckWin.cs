@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckWin : MonoBehaviour
 {
@@ -22,8 +23,16 @@ public class CheckWin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
-            script.WinGame();
+            Scene m_Scene = SceneManager.GetActiveScene();
+            string sceneName = m_Scene.name;
+            if (sceneName.Equals("Level0"))
+            {
+                SceneManager.LoadScene("1rstLevel");
+            } else
+            {
+                TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
+                script.WinGame();
+            }
         }
     }
 }
