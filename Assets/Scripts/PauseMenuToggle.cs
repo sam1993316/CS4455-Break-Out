@@ -7,7 +7,7 @@ public class PauseMenuToggle : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     private GameObject mainMenu;
-    private GameObject optionsMenu;
+    //private GameObject optionsMenu;
 
     void Awake()
     {
@@ -25,9 +25,9 @@ public class PauseMenuToggle : MonoBehaviour
         if (mainMenu == null)
             Debug.LogError("Main Menu could not be found");
 
-        optionsMenu = GameObject.Find("Options Menu");
-        if (optionsMenu == null)
-            Debug.LogError("Options Menu could not be found");
+        //optionsMenu = GameObject.Find("Options Menu");
+        //if (optionsMenu == null)
+        //    Debug.LogError("Options Menu could not be found");
 
     }
 
@@ -57,7 +57,7 @@ public class PauseMenuToggle : MonoBehaviour
             canvasGroup.alpha = 1f;
             Time.timeScale = 0f;
             mainMenu.SetActive(true);
-            optionsMenu.SetActive(false);
+            //optionsMenu.SetActive(false);
             // Hiding the cursor when going back to the game
             Debug.Log("cursor on");
             Cursor.visible = true;
