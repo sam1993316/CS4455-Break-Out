@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneMenu : MonoBehaviour
 {
+    public string level;
 
     public void NewGame()
     {
-        SceneManager.LoadScene("Level0");
+        SceneManager.LoadScene(level);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
     }
