@@ -89,8 +89,14 @@ public class GuardStateMachine : MonoBehaviour
             case State.chase:
                 if (agent.remainingDistance < 1f && agent.pathPending == false)
                 {
-                    TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
-                    script.LoseGame();
+                    Vector3 targetDir = player.transform.position - transform.position;
+                    float angle = Vector3.Angle(targetDir, transform.forward);
+
+                    if (angle < 60.0f) //Make sure the enemy is facing the player before they can "catch" the player
+                    {
+                        TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
+                        script.LoseGame();
+                    }
                 }
                 agent.SetDestination(player.transform.position);
                 animator.SetBool("Idle", false);
@@ -131,8 +137,6 @@ public class GuardStateMachine : MonoBehaviour
         if (playerAngle < maxFOVAngle)
         {
             RaycastHit hit;
-            
-
 
             if (Physics.Raycast(eyes.transform.position, playerDirection + playerHeight, out hit, sightRange))
             {
@@ -161,6 +165,38 @@ public class GuardStateMachine : MonoBehaviour
             {
                 //detectionText.text = "Player not found 2";
                 //Debug.Log("Player not found 2");
+            }
+        }
+        else
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(eyes.transform.position, playerDirection + playerHeight, out hit, sightRange))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    //Debug.DrawRay(eyes.transform.position, playerDirection + playerHeight);
+                    //detectionText.text = "Player found";
+                    //Debug.Log("Player found");
+                    float y_distance = Math.Abs(hit.collider.transform.position.y - this.transform.position.y);
+                    if (y_distance <= 2.0f) //Make sure that cop can't see the player if the player is high up
+                    {
+                        float distance = Math.Abs(hit.collider.transform.position.magnitude - this.transform.position.magnitude);
+                        if (distance <= 3.0f) //Have the cop notice if the player gets too close
+                        {
+                            state = State.chase;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    ////detectionText.text = "Player not found 1";
+                    ////Debug.Log("Player not found 1");
+                    //if (state == State.chase)
+                    //{
+                    //    state = State.patrol;
+                    //}
+                }
             }
         }
     }
