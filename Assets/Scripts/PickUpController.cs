@@ -13,6 +13,8 @@ public class PickUpController : MonoBehaviour
     //public Renderer render;
     public Transform player, itemContainer;
 
+    [SerializeField] private UI_Inventory uiInventory;
+
     public float pickUpRange;
     public float throwingForce;
     public float throwUpwardForce, throwForwardForce;
@@ -114,6 +116,8 @@ public class PickUpController : MonoBehaviour
         equipped = true;
         slotFull = true;
 
+        uiInventory.IncrementWineBottleAmount();
+
         // Make the Item a child of the item container
         transform.SetParent(itemContainer);
         transform.localPosition = Vector3.zero;
@@ -131,6 +135,8 @@ public class PickUpController : MonoBehaviour
     {
         equipped = false;
         slotFull = false;
+
+        uiInventory.DecrementWineBottleAmount();
 
         // Set parent to null/detach from the item container object
         transform.SetParent(null);

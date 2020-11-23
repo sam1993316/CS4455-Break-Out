@@ -13,6 +13,9 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
     public Canvas InGameMenu;
     private bool gameEnded = false;
 
+    private Inventory inventory;
+    [SerializeField] private UI_Inventory uiInventory;
+
     private float filteredForwardInput = 0f;
     public float forwardInputFilter = 5f;
     private float forwardSpeedLimit = 1f;
@@ -42,6 +45,8 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        inventory = new Inventory();
+        uiInventory.SetInvetory(inventory);
     }
 
     // Update is called once per frame

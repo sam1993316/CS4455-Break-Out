@@ -8,7 +8,6 @@ public class GameOver : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     public Text winLoseText;
-    //public TextMeshProUGUI winLoseText;
 
     // Start is called before the first frame update
     void Start()

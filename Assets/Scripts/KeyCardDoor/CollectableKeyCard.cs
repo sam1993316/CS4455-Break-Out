@@ -12,6 +12,8 @@ public class CollectableKeyCard : MonoBehaviour
 
     public float pickUpRange;
 
+    [SerializeField] private UI_Inventory uiInventory;
+
     private void Start() {
         pickUpRange = 3f;
     }
@@ -32,6 +34,7 @@ public class CollectableKeyCard : MonoBehaviour
             kc.ReceiveKey(keyID);
             Destroy(this.gameObject);
         }
-        
+
+        uiInventory.IncrementKeyCardAmount(keyID);
     }
 }

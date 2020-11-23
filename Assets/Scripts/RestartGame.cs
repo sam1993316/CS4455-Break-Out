@@ -20,6 +20,7 @@ public class RestartGame : MonoBehaviour
 
     public void RestartLevel()
     {
+        Debug.Log("restarting level...");
         Scene m_Scene = SceneManager.GetActiveScene();
         string sceneName = m_Scene.name;
         SceneManager.LoadScene(sceneName);
