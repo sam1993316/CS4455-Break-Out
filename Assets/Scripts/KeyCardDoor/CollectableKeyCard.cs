@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 // put this on the keycard
 public class CollectableKeyCard : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class CollectableKeyCard : MonoBehaviour
     public string keyID;
     public Transform player;
     public GameObject playerObject;
+    public Text taskText;
+    public string newObjective;
 
     public float pickUpRange;
 
@@ -34,6 +36,9 @@ public class CollectableKeyCard : MonoBehaviour
             kc.ReceiveKey(keyID);
             Destroy(this.gameObject);
         }
+
+        taskText.text = newObjective;
+
 
         uiInventory.IncrementKeyCardAmount(keyID);
     }
