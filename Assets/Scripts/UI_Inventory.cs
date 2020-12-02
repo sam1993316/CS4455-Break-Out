@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
-    private Inventory inventory;
+    public Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
 

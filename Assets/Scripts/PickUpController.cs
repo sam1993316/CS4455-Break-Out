@@ -53,6 +53,7 @@ public class PickUpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slotFull = uiInventory.inventory.GetItemList()[0].amount >= 1; //Somewhat hacky solution to update this static variable for when the player goes to the next level with a bottle in the inventory
         // Check to see if player is within range to press "E"
         Vector3 distanceToPlayer = player.position - this.transform.position;
         if (!slotFull && !equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E)) 
