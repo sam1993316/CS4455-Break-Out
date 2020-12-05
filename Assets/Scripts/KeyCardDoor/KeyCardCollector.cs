@@ -27,11 +27,13 @@ public class KeyCardCollector : MonoBehaviour
         hasBlueKey = false;
         hasExitKey = false;
 
+        audioSource = GetComponent<AudioSource>();
         audioSource.clip = clips[0];
     }
 
     public void ReceiveKey(string keyID)
     {
+        playPickupSound();
         if (keyID == YellowKeyID) {
             hasYellowKey = true;
             keys.Add(keyID);
@@ -55,10 +57,7 @@ public class KeyCardCollector : MonoBehaviour
 
     public void playPickupSound()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }
+        audioSource.Play();
     }
 
 }

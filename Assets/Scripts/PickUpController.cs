@@ -114,6 +114,9 @@ public class PickUpController : MonoBehaviour
 
     void PickUp()
     {
+        AudioClip clip = clips[1];
+        audioSource.PlayOneShot(clip);
+
         equipped = true;
         slotFull = true;
 
