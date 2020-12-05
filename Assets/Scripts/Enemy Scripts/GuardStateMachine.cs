@@ -36,6 +36,10 @@ public class GuardStateMachine : MonoBehaviour
     public float investigationLengthUpperLimit = 20.0f;
     private float investigationLength;
 
+    public AudioClip[] clips;
+    private AudioSource audioSource;
+    private bool initialAlert;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,9 @@ public class GuardStateMachine : MonoBehaviour
         state = State.patrol;
         currWaypoint = 0;
         sightRange = 20f;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = clips[0];
+        initialAlert = false;
     }
 
     private void OnAnimatorMove()
@@ -64,6 +71,7 @@ public class GuardStateMachine : MonoBehaviour
         switch (state)
         {
             case State.patrol:
+                initialAlert = false;
                 if (waypoints.Length > 1)
                 {
                     animator.SetBool("playerFound", false);
@@ -87,6 +95,7 @@ public class GuardStateMachine : MonoBehaviour
                 findPlayer();
                 break;
             case State.chase:
+                playFoundPlayerSound();
                 if (agent.remainingDistance < 1f && agent.pathPending == false)
                 {
                     Vector3 targetDir = player.transform.position - transform.position;
@@ -209,6 +218,15 @@ public class GuardStateMachine : MonoBehaviour
             investigationLength = UnityEngine.Random.Range(investigationLengthLowerLimit, investigationLengthUpperLimit);
             state = State.investigateSound;
             Debug.Log("Going to investigate " + soundLocation + " for " + investigationLength);
+        }
+    }
+
+    public void playFoundPlayerSound() 
+    {
+        if (!audioSource.isPlaying && !initialAlert)
+        {
+            audioSource.Play();
+            initialAlert = true;
         }
     }
 }

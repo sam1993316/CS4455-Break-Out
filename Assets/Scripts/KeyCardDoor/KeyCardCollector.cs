@@ -18,11 +18,16 @@ public class KeyCardCollector : MonoBehaviour
 
     private List<string> keys = new List<string>();
 
+    public AudioClip[] clips;
+    private AudioSource audioSource;
+
     void Start()
     {
         hasYellowKey = false;
         hasBlueKey = false;
         hasExitKey = false;
+
+        audioSource.clip = clips[0];
     }
 
     public void ReceiveKey(string keyID)
@@ -46,6 +51,14 @@ public class KeyCardCollector : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void playPickupSound()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
     }
 
 }
