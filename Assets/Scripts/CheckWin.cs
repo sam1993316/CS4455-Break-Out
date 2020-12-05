@@ -28,7 +28,9 @@ public class CheckWin : MonoBehaviour
             if (sceneName.Equals("Level0"))
             {
                 SceneManager.LoadScene("1rstLevel");
-            } else
+            } else if (sceneName.Equals("1rstLevel")) {
+                SceneManager.LoadScene("Level2");
+            }else 
             {
                 TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
                 script.WinGame();
