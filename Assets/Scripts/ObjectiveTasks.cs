@@ -26,6 +26,7 @@ public class ObjectiveTasks : MonoBehaviour
         {
             tasksText.text = currentTask;
             m_ObjectCollider.isTrigger = false;
+            m_ObjectCollider.enabled = false;
         }
     }
 }
