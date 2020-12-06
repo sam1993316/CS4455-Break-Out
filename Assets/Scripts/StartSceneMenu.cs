@@ -16,6 +16,7 @@ public class StartSceneMenu : MonoBehaviour
 
     public void CreditScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("CreditScene");
     }
     public void StartScene()

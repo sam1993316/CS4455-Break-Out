@@ -18,27 +18,27 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    public void LoseGame()
-    {
-        winLoseText.text = "Y  O  U    L O S E!";
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-    }
+        public void LoseGame()
+        {
+            winLoseText.text = "Y  O  U    L O S E!";
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1f;
+            Time.timeScale = 0f;
+            Cursor.visible = true;
+        }
 
-    public void WinGame()
-    {
-        winLoseText.text = "Y O U   W I N!";
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
-        Time.timeScale = 0f;
-        Cursor.visible = true;
+        public void WinGame()
+        {
+            winLoseText.text = "Y O U   W I N!";
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1f;
+            Time.timeScale = 0f;
+            Cursor.visible = true;
 
+        }
     }
-}

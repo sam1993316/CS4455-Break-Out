@@ -47,13 +47,14 @@ public class TestControllerForThirdPersonCamera : MonoBehaviour
         anim = GetComponent<Animator>();
         inventory = new Inventory();
         uiInventory.SetInvetory(inventory);
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
         bool isGrounded = IsGrounded || CharacterCommon.CheckGroundNear(this.transform.position, jumpableGroundNormalMaxAngle, 0.1f, 1f, out closeToJumpableGround);
-
+        Debug.Log(Time.timeScale);
         if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
