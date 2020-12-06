@@ -14,6 +14,14 @@ public class StartSceneMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
+    public void CreditScene()
+    {
+        SceneManager.LoadScene("CreditScene");
+    }
+    public void StartScene()
+    {
+        SceneManager.LoadScene("StartingScene");
+    }
     public void QuitGame()
     {
         Application.Quit();
