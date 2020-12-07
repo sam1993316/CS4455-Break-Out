@@ -13,12 +13,21 @@ public class DoorAnimatorController : MonoBehaviour
     [SerializeField] private Animator movingDoorController;
     // public Animator movingDoorController;
 
+    private AudioSource[] clips;
+
+    private void Start()
+    {
+        clips = GetComponents<AudioSource>();
+
+    }
+
     private void OnTriggerEnter(Collider c)
     {
         // inlcude a check here for a keycard
         kc = player.GetComponent<KeyCardCollector>();
         if (c.CompareTag("Player") && kc.HasKey(thisDoorsKey))
         {
+            clips[0].Play();
             Debug.Log("Player has entered Door Collider");
             movingDoorController.SetBool("playerEnter", true);
         }
@@ -29,6 +38,7 @@ public class DoorAnimatorController : MonoBehaviour
     {
         if (c.CompareTag("Player"))
         {
+            clips[1].Play();
             Debug.Log("Player has exited the Door Collider");
             movingDoorController.SetBool("playerEnter", false);
         }
