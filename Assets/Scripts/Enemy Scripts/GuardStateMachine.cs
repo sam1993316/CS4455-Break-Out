@@ -103,10 +103,15 @@ public class GuardStateMachine : MonoBehaviour
 
                     if (angle < 60.0f) //Make sure the enemy is facing the player before they can "catch" the player
                     {
-                        TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
-                        script.LoseGame();
+                        float distance = Math.Abs(this.transform.position.magnitude - player.transform.position.magnitude);
+                        if (distance < 1f)
+                        {
+                            TestControllerForThirdPersonCamera script = player.GetComponent<TestControllerForThirdPersonCamera>();
+                            script.LoseGame();
+                        }
                     }
                 }
+
                 agent.SetDestination(player.transform.position);
                 animator.SetBool("Idle", false);
                 animator.SetBool("playerFound", true);
