@@ -192,8 +192,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Sound\r\nPick up sound:  https://freesound.org/people/SilverIllusionist/sounds/411177/\r\n\nGlass
     sound:  https://freesound.org/people/InspectorJ/sounds/344265/\r\n\nCop alert
-    sound:  https://www.youtube.com/watch?v=2P5qbcRAXVk\r\n\nBackground music:  https://www.fesliyanstudios.com/royalty-free-music/download/can-it-be/104\r\n\nFootstep
-    sound:  https://www.zapsplat.com/music/single-footstep-hard-heeled-shoe-on-concrete-2/\r\n\nModels/Textures\r\nCop
+    sound:  https://www.youtube.com/watch?v=2P5qbcRAXVk\r\n\nBackground music:  https://www.fesliyanstudios.com/royalty-free-music/download/can-it-be/104\r\n\nDoor
+    sound: https://www.youtube.com/watch?v=lbqPJ3GIAA8\n\nFootstep sound:  https://www.zapsplat.com/music/single-footstep-hard-heeled-shoe-on-concrete-2/\r\n\nModels/Textures\r\nCop
     model:  https://assetstore.unity.com/packages/3d/characters/police-officer-proto-series-107256\r\n\nZombie
     model:\r \nhttps://assetstore.unity.com/packages/3d/characters/humanoids/zombie-30232\r\n\nWine
     glass model:\r \nhttps://assetstore.unity.com/packages/3d/props/wine-glass-bottle-124055\r\n\nWall
